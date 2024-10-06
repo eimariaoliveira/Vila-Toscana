@@ -77,9 +77,14 @@ class Usuario(models.Model):
         return self.nome
 
 
-class residente(models.Model):
-    data_nascimento = models.DateField()
+class Residente(Usuario):
+    data_nascimento = models.DateField(_('Data de Nascimento'), blank=True, null=True, help_text=_('Formato DD/MM/AAAA'))
     foto = models.ImageField(upload_to='resident_photos/', blank=True, null=True)
+
+    class Meta:
+        verbose_name = _('Residente')
+        verbose_name_plural = _('Residentes')
+
     def __str__(self):
         return self.nome
 class responsavel(models.Model):
@@ -110,14 +115,16 @@ class inscricao(models.Model):
         ('cancelada', 'Cancelada'),
     ]
 
-
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pendente')
+    Residente = models.ForeignKey('Residente', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Inscrição de {self.usuario} - {self.status}"
+        return f"Inscrição de {self.Residente} - {self.status}"
+
     class Meta:
-            verbose_name = ('Incrição')
-            verbose_name_plural = ('Incrições')
+        verbose_name = ('Inscrição')
+        verbose_name_plural = ('Inscrições')
+
 class categoria(models.Model):
     nome_categoria = models.CharField(max_length=255)
 

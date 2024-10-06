@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import residente, Evento, responsavel, endereco, categoria, inscricao, feedback, Atividade, Administrador
+from .models import Residente, Evento, responsavel, endereco, categoria, inscricao, feedback, Atividade, Administrador
 
 class AtividadeInline(admin.TabularInline):
     model = Atividade
@@ -18,7 +18,7 @@ class AdministradorAdmin(admin.ModelAdmin):
 class AtividadeAdmin(admin.ModelAdmin):
     list_display = ('nome', 'descricao')
 
-@admin.register(residente)
+@admin.register(Residente)
 class residenteAdmin(admin.ModelAdmin):
     list_filter = ('data_nascimento',)
 @admin.register(responsavel)
